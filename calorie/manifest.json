@@ -1,0 +1,28 @@
+{
+  "name": "칼로리 · 6대 영양소 계산기",
+  "short_name": "칼로리 계산기",
+  "description": "하루 칼로리와 탄수화물·단백질·지방·식이섬유·나트륨을 기록하는 계산기",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "/diet-tracker/calorie/",
+  "scope": "/diet-tracker/calorie/",
+  "id": "/diet-tracker/calorie/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF9F2",
+  "theme_color": "#FFF9F2",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
