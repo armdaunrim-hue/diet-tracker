@@ -183,7 +183,7 @@
     overflow:hidden;
   }
   .nut .nlabel{font-size:11.5px; font-weight:800; color:var(--ink-faint); display:flex; align-items:center; gap:5px; white-space:nowrap;}
-  .nut .nlabel .sw{width:6px; height:6px; border-radius:50%; flex:0 0 Auto;}
+  .nut .nlabel .sw{width:6px; height:6px; border-radius:50%; flex:0 0 auto;}
   .nut .nvalue{
     margin-top:2px;
     font-size:21px; font-weight:800; letter-spacing:-.03em;
@@ -233,7 +233,12 @@
   .meal:active{transform:scale(.96);}
   .meal.on{background:var(--accent-soft); border-color:#F5CCA6; color:var(--accent-deep);}
 
-  .nutinputs{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .nutinputs{display:grid; grid-template-columns:1fr 1fr; gap:9px 8px;}
+  .numfield{min-width:0;}
+  .numfield .nlabel2{
+    display:block; font-size:11.5px; font-weight:800; color:var(--ink-soft);
+    margin:0 0 4px 3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
   .numwrap{position:relative; min-width:0;}
   .numin{
     width:100%;
@@ -259,6 +264,7 @@
     pointer-events:none; letter-spacing:.01em;
   }
   .kcalwrap{grid-column:1 / -1;}
+  .kcalwrap .nlabel2{color:#7A6597;}
   .kcalwrap .numin{background:#FCF8FF; border-color:#EADFF4; color:#5C477A;}
   .kcalwrap .numin:focus{border-color:#CFBBE6;}
 
@@ -489,29 +495,47 @@
     <div class="field">
       <div class="flabel">영양소 <span class="opt">(소수점 가능 · 빈 칸은 0)</span></div>
       <div class="nutinputs">
-        <div class="numwrap kcalwrap">
-          <input class="numin" id="fKcal" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="칼로리">
-          <span class="numunit">kcal</span>
+        <div class="numfield kcalwrap">
+          <label class="nlabel2" for="fKcal">칼로리</label>
+          <div class="numwrap">
+            <input class="numin" id="fKcal" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">kcal</span>
+          </div>
         </div>
-        <div class="numwrap">
-          <input class="numin" id="fCarb" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="탄수화물">
-          <span class="numunit">g 탄수화물</span>
+        <div class="numfield">
+          <label class="nlabel2" for="fCarb">탄수화물</label>
+          <div class="numwrap">
+            <input class="numin" id="fCarb" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">g</span>
+          </div>
         </div>
-        <div class="numwrap">
-          <input class="numin" id="fProtein" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="단백질">
-          <span class="numunit">g 단백질</span>
+        <div class="numfield">
+          <label class="nlabel2" for="fProtein">단백질</label>
+          <div class="numwrap">
+            <input class="numin" id="fProtein" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">g</span>
+          </div>
         </div>
-        <div class="numwrap">
-          <input class="numin" id="fFat" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="지방">
-          <span class="numunit">g 지방</span>
+        <div class="numfield">
+          <label class="nlabel2" for="fFat">지방</label>
+          <div class="numwrap">
+            <input class="numin" id="fFat" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">g</span>
+          </div>
         </div>
-        <div class="numwrap">
-          <input class="numin" id="fFiber" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="식이섬유">
-          <span class="numunit">g 식이섬유</span>
+        <div class="numfield">
+          <label class="nlabel2" for="fFiber">식이섬유</label>
+          <div class="numwrap">
+            <input class="numin" id="fFiber" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">g</span>
+          </div>
         </div>
-        <div class="numwrap">
-          <input class="numin" id="fSodium" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="나트륨">
-          <span class="numunit">mg 나트륨</span>
+        <div class="numfield">
+          <label class="nlabel2" for="fSodium">나트륨</label>
+          <div class="numwrap">
+            <input class="numin" id="fSodium" type="number" inputmode="decimal" step="any" min="0" placeholder="0">
+            <span class="numunit">mg</span>
+          </div>
         </div>
       </div>
     </div>
@@ -801,7 +825,8 @@ document.getElementById('previewWarn').style.display = 'none';
     if (m.total > 0) {
       var macroKcal = kcalFromMacros(t);
       var diff = round1(t.kcal - macroKcal);
-      if (Math.abs(diff) >= 20) {
+      var bigEnough = Math.abs(diff) >= 100 && Math.abs(diff) >= macroKcal * 0.2;
+      if (bigEnough) {
         el.ratioNote.textContent = '영양소 기준 ' + fmt(macroKcal) + ' kcal · 입력 칼로리와 ' + (diff > 0 ? '+' : '') + fmt(diff) + ' 차이';
       } else {
         el.ratioNote.textContent = '탄수화물 4 · 단백질 4 · 지방 9 kcal 기준이에요';
@@ -1020,9 +1045,8 @@ document.getElementById('previewWarn').style.display = 'none';
     list.push(builtNew.entry);
     setEntries(currentDate, list);
     clearForm();
-    setMeal(mealForHour(new Date().getHours()));
+    /* 끼니 선택은 그대로 두어, 같은 끼니를 여러 개 적을 때 다시 고르지 않게 한다 */
     renderAll();
-    el.dateSub.textContent = el.dateSub.textContent; /* noop */
     showToast(builtNew.entry.name + ' 추가했어요');
     /* keep the screen near the list so the new row is visible */
     if (window.innerWidth < 560) {
