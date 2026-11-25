@@ -140,22 +140,46 @@
     padding:16px 16px 14px;
     box-shadow:var(--shadow);
   }
-  .hero-top{display:flex; align-items:flex-end; justify-content:space-between; gap:10px;}
-  .hero-label{font-size:12.5px; font-weight:800; color:var(--ink-faint); letter-spacing:.01em;}
+  .hero-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .hero-label{font-size:12.5px; font-weight:800; color:var(--ink-faint); letter-spacing:.01em; min-width:0;}
+  .goalbtn{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:#FFFDFA; color:var(--ink-soft);
+    font-size:12px; font-weight:800; letter-spacing:-.01em;
+    padding:0 13px; border-radius:999px; min-height:37px;
+    display:inline-flex; align-items:center; gap:4px;
+    cursor:pointer;
+    -webkit-appearance:none; appearance:none;
+    transition:transform .1s ease, background .12s ease;
+  }
+  .goalbtn:active{transform:scale(.95); background:#FFF6EC;}
   .hero-value{
-    margin-top:1px;
-    font-size:40px; font-weight:800; letter-spacing:-.045em; line-height:1.05;
+    margin-top:4px;
+    display:flex; align-items:baseline;
+    font-size:34px; font-weight:800; letter-spacing:-.045em; line-height:1.1;
     font-variant-numeric:tabular-nums;
     color:var(--grape);
     white-space:nowrap;
   }
-  .hero-value small{font-size:15px; font-weight:800; color:var(--ink-soft); margin-left:3px; letter-spacing:0;}
-  .hero-count{
-    flex:0 0 auto;
-    font-size:11.5px; font-weight:800; color:var(--ink-soft);
-    background:#FBF6FF; border:1px solid #EDE2F6; border-radius:999px;
-    padding:5px 10px; white-space:nowrap;
+  .hero-value .of{font-size:19px; font-weight:800; color:var(--ink-soft); letter-spacing:-.025em; margin-left:7px;}
+  .hero-value small{font-size:13px; font-weight:800; color:var(--ink-soft); margin-left:3px; letter-spacing:0;}
+  .goalbar{height:10px; border-radius:999px; background:#F4EADF; overflow:hidden; margin-top:11px;}
+  .goalbar > i{
+    display:block; height:100%; width:0; border-radius:999px;
+    background:linear-gradient(90deg,#F8BE8C,#EE8A45);
+    transition:width .3s cubic-bezier(.2,.8,.2,1);
   }
+  .goalbar.over > i{background:linear-gradient(90deg,#F2937A,#DE6B4A);}
+  .goalline{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-top:6px;}
+  .gleft{
+    font-size:12px; font-weight:800; color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0;
+  }
+  .gleft.over{color:#C9532F;}
+  .gright{flex:0 0 auto; font-size:11.5px; font-weight:800; color:var(--ink-faint); white-space:nowrap;}
+  .gright b{color:var(--ink-soft); font-variant-numeric:tabular-nums;}
   .ratio{margin-top:14px;}
   .ratio-bar{display:flex; height:10px; border-radius:999px; overflow:hidden; background:#F7EFE4; gap:2px;}
   .ratio-bar > i{display:block; height:100%; transition:width .28s cubic-bezier(.2,.8,.2,1);}
@@ -184,14 +208,29 @@
   }
   .nut .nlabel{font-size:11.5px; font-weight:800; color:var(--ink-faint); display:flex; align-items:center; gap:5px; white-space:nowrap;}
   .nut .nlabel .sw{width:6px; height:6px; border-radius:50%; flex:0 0 auto;}
+  .nut .npct{margin-left:auto; font-size:10.5px; font-weight:800; color:var(--ink-faint); font-variant-numeric:tabular-nums;}
   .nut .nvalue{
     margin-top:2px;
+    display:flex; align-items:baseline;
     font-size:21px; font-weight:800; letter-spacing:-.03em;
     font-variant-numeric:tabular-nums;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; overflow:hidden;
     line-height:1.15;
   }
-  .nut .nvalue small{font-size:11.5px; font-weight:800; color:var(--ink-soft); margin-left:1px; letter-spacing:0;}
+  .nut .nvalue small{font-size:10.5px; font-weight:800; color:var(--ink-soft); margin-left:1px; letter-spacing:0;}
+  .nut .nvalue small.tgt{font-size:11px; font-weight:800; color:var(--ink-faint); margin-left:4px;}
+  .nbar{height:6px; border-radius:999px; background:#F4EADF; overflow:hidden; margin-top:7px;}
+  .nbar > i{display:block; height:100%; width:0; border-radius:999px; background:#F1A468; transition:width .3s cubic-bezier(.2,.8,.2,1);}
+  .nbar > i.c{background:#F1A468;}
+  .nbar > i.p{background:var(--green);}
+  .nbar > i.f{background:var(--amber);}
+  .nbar > i.b{background:var(--teal);}
+  .nbar > i.s{background:var(--rose);}
+  .nleft{font-size:10.5px; font-weight:800; color:var(--ink-faint); margin-top:5px; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .nut.over{border-color:#F6CDBE; background:#FFF9F6;}
+  .nut.over .npct{color:#C9532F;}
+  .nut.over .nleft{color:#C9532F;}
+  .nut.over .nbar > i{background:linear-gradient(90deg,#F0896A,#DE6B4A);}
   .nut.wide{grid-column:1 / -1;}
   .nut.wide .nvalue{font-size:20px;}
 
@@ -365,6 +404,44 @@
   .minibtn.danger.armed{background:var(--danger); border-color:var(--danger); color:#fff;}
   .minibtn.edit{color:var(--grape); border-color:#E1D4F1;}
 
+  /* ---------- target sheet ---------- */
+  body.sheet-open{overflow:hidden;}
+  .backdrop{
+    position:fixed; inset:0; z-index:80;
+    background:rgba(61,50,41,.4);
+    display:flex; align-items:flex-end; justify-content:center;
+    -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
+  }
+  .backdrop[hidden]{display:none;}
+  .sheet{
+    width:100%; max-width:520px;
+    background:var(--card);
+    border-radius:22px 22px 0 0;
+    padding:16px 16px calc(16px + var(--safe-b));
+    box-shadow:0 -10px 34px rgba(80,55,30,.2);
+    max-height:90vh; overflow-y:auto;
+    animation:sheetUp .22s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes sheetUp{from{transform:translateY(20px); opacity:.5;} to{transform:translateY(0); opacity:1;}}
+  .sheet-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .sheet-title{font-size:17px; font-weight:800; letter-spacing:-.02em;}
+  .sheet-close{
+    flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line); background:#FFFDFA; color:var(--ink-soft);
+    font-size:14px; font-weight:800; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    -webkit-appearance:none; appearance:none;
+  }
+  .sheet-close:active{transform:scale(.94);}
+  .sheet-sub{font-size:12.5px; font-weight:700; color:var(--ink-soft); margin-top:5px; line-height:1.5;}
+  .tgrid{display:grid; grid-template-columns:1fr 1fr; gap:9px 8px; margin-top:12px;}
+  .sheet-actions{display:flex; gap:8px; margin-top:14px;}
+  .btn-reset{
+    flex:0 0 auto;
+    background:#fff; color:var(--ink-soft);
+    border:1.5px solid var(--line);
+  }
+
   footer{
     text-align:center;
     font-size:11.5px; font-weight:700; color:var(--ink-faint);
@@ -391,7 +468,8 @@
     :root{--pad:12px;}
     .card{padding:13px; border-radius:16px;}
     .hero{padding:14px 13px 12px;}
-    .hero-value{font-size:34px;}
+    .hero-value{font-size:30px;}
+    .hero-value .of{font-size:17px;}
     .nut{padding:10px;}
     .nut .nvalue{font-size:19px;}
     .meal{font-size:12.5px; padding:10px 0;}
@@ -427,13 +505,20 @@
 </header>
 
 <!-- ============ SUMMARY ============ -->
-<section class="hero" aria-label="하루 합산">
+<section class="hero" aria-label="하루 목표">
   <div class="hero-top">
-    <div>
-      <div class="hero-label">하루 합산</div>
-      <div class="hero-value"><span id="sumKcal">0</span><small>kcal</small></div>
-    </div>
-    <div class="hero-count" id="sumCount">0개 기록</div>
+    <div class="hero-label">하루 합산 · 칼로리</div>
+    <button class="goalbtn" id="targetOpen" type="button" aria-haspopup="dialog">목표 설정</button>
+  </div>
+  <div class="hero-value">
+    <span id="sumKcal">0</span><span class="of">/ <span id="targetKcal">1,800</span></span><small>kcal</small>
+  </div>
+  <div class="goalbar" id="barKcalWrap" role="progressbar" aria-label="칼로리 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <i id="barKcal" style="width:0%"></i>
+  </div>
+  <div class="goalline">
+    <span class="gleft" id="leftKcal">1,800 kcal 남음</span>
+    <span class="gright"><b id="pctKcal">0%</b> · <span id="sumCount">0개 기록</span></span>
   </div>
   <div class="ratio">
     <div class="ratio-bar" aria-hidden="true">
@@ -450,26 +535,36 @@
   </div>
 </section>
 
-<div class="nutgrid" aria-label="영양소 합계">
-  <div class="nut">
-    <div class="nlabel"><i class="sw" style="background:#F1A468"></i>탄수화물</div>
-    <div class="nvalue"><span id="sumCarb">0</span><small>g</small></div>
+<div class="nutgrid" aria-label="영양소 목표">
+  <div class="nut" id="nutCarb">
+    <div class="nlabel"><i class="sw" style="background:#F1A468"></i>탄수화물<span class="npct" id="pctCarb">0%</span></div>
+    <div class="nvalue"><span id="sumCarb">0</span><small class="tgt">/ <span id="targetCarb">175</span>g</small></div>
+    <div class="nbar" id="barCarbWrap" role="progressbar" aria-label="탄수화물 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="c" id="barCarb" style="width:0%"></i></div>
+    <div class="nleft" id="leftCarb">175 g 남음</div>
   </div>
-  <div class="nut">
-    <div class="nlabel"><i class="sw" style="background:#7CB08A"></i>단백질</div>
-    <div class="nvalue"><span id="sumProtein">0</span><small>g</small></div>
+  <div class="nut" id="nutProtein">
+    <div class="nlabel"><i class="sw" style="background:#7CB08A"></i>단백질<span class="npct" id="pctProtein">0%</span></div>
+    <div class="nvalue"><span id="sumProtein">0</span><small class="tgt">/ <span id="targetProtein">75</span>g</small></div>
+    <div class="nbar" id="barProteinWrap" role="progressbar" aria-label="단백질 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="p" id="barProtein" style="width:0%"></i></div>
+    <div class="nleft" id="leftProtein">75 g 남음</div>
   </div>
-  <div class="nut">
-    <div class="nlabel"><i class="sw" style="background:#E4A93C"></i>지방</div>
-    <div class="nvalue"><span id="sumFat">0</span><small>g</small></div>
+  <div class="nut" id="nutFat">
+    <div class="nlabel"><i class="sw" style="background:#E4A93C"></i>지방<span class="npct" id="pctFat">0%</span></div>
+    <div class="nvalue"><span id="sumFat">0</span><small class="tgt">/ <span id="targetFat">65</span>g</small></div>
+    <div class="nbar" id="barFatWrap" role="progressbar" aria-label="지방 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="f" id="barFat" style="width:0%"></i></div>
+    <div class="nleft" id="leftFat">65 g 남음</div>
   </div>
-  <div class="nut">
-    <div class="nlabel"><i class="sw" style="background:#5FA8A0"></i>식이섬유</div>
-    <div class="nvalue"><span id="sumFiber">0</span><small>g</small></div>
+  <div class="nut" id="nutFiber">
+    <div class="nlabel"><i class="sw" style="background:#5FA8A0"></i>식이섬유<span class="npct" id="pctFiber">0%</span></div>
+    <div class="nvalue"><span id="sumFiber">0</span><small class="tgt">/ <span id="targetFiber">28</span>g</small></div>
+    <div class="nbar" id="barFiberWrap" role="progressbar" aria-label="식이섬유 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="b" id="barFiber" style="width:0%"></i></div>
+    <div class="nleft" id="leftFiber">28 g 남음</div>
   </div>
-  <div class="nut wide">
-    <div class="nlabel"><i class="sw" style="background:#C77B8E"></i>나트륨</div>
-    <div class="nvalue"><span id="sumSodium">0</span><small>mg</small></div>
+  <div class="nut wide" id="nutSodium">
+    <div class="nlabel"><i class="sw" style="background:#C77B8E"></i>나트륨<span class="npct" id="pctSodium">0%</span></div>
+    <div class="nvalue"><span id="sumSodium">0</span><small class="tgt">/ <span id="targetSodium">1,000</span>mg</small></div>
+    <div class="nbar" id="barSodiumWrap" role="progressbar" aria-label="나트륨 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="s" id="barSodium" style="width:0%"></i></div>
+    <div class="nleft" id="leftSodium">1,000 mg 남음</div>
   </div>
 </div>
 
@@ -562,6 +657,67 @@
   <div class="list" id="list"></div>
 </section>
 
+<div id="targetBackdrop" class="backdrop" hidden>
+  <div class="sheet" id="targetSheet" role="dialog" aria-modal="true" aria-labelledby="targetTitle">
+    <div class="sheet-head">
+      <div class="sheet-title" id="targetTitle">하루 목표 설정</div>
+      <button class="sheet-close" id="targetClose" type="button" aria-label="닫기">✕</button>
+    </div>
+    <div class="sheet-sub">바꾼 목표는 이 기기에 저장되고, 진행률이 바로 다시 계산돼요.</div>
+    <form id="targetForm" autocomplete="off" novalidate>
+      <div class="tgrid">
+        <div class="numfield kcalwrap">
+          <label class="nlabel2" for="fTKcal">하루 칼로리</label>
+          <div class="numwrap">
+            <input class="numin" id="fTKcal" type="number" inputmode="decimal" step="any" min="0" placeholder="1800">
+            <span class="numunit">kcal</span>
+          </div>
+        </div>
+        <div class="numfield">
+          <label class="nlabel2" for="fTCarb">탄수화물</label>
+          <div class="numwrap">
+            <input class="numin" id="fTCarb" type="number" inputmode="decimal" step="any" min="0" placeholder="175">
+            <span class="numunit">g</span>
+          </div>
+        </div>
+        <div class="numfield">
+          <label class="nlabel2" for="fTProtein">단백질</label>
+          <div class="numwrap">
+            <input class="numin" id="fTProtein" type="number" inputmode="decimal" step="any" min="0" placeholder="75">
+            <span class="numunit">g</span>
+          </div>
+        </div>
+        <div class="numfield">
+          <label class="nlabel2" for="fTFat">지방</label>
+          <div class="numwrap">
+            <input class="numin" id="fTFat" type="number" inputmode="decimal" step="any" min="0" placeholder="65">
+            <span class="numunit">g</span>
+          </div>
+        </div>
+        <div class="numfield">
+          <label class="nlabel2" for="fTFiber">식이섬유</label>
+          <div class="numwrap">
+            <input class="numin" id="fTFiber" type="number" inputmode="decimal" step="any" min="0" placeholder="28">
+            <span class="numunit">g</span>
+          </div>
+        </div>
+        <div class="numfield sodiumfield">
+          <label class="nlabel2" for="fTSodium">나트륨</label>
+          <div class="numwrap">
+            <input class="numin" id="fTSodium" type="number" inputmode="decimal" step="any" min="0" placeholder="1000">
+            <span class="numunit">mg</span>
+          </div>
+        </div>
+      </div>
+      <div class="formmsg" id="targetMsg" role="alert"></div>
+      <div class="sheet-actions">
+        <button class="btn btn-primary" type="submit">저장</button>
+        <button class="btn btn-reset" id="targetReset" type="button">기본값으로</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <footer id="footNote">기록은 이 기기에만 저장돼요 · 서버로 보내지 않아요</footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -576,14 +732,16 @@ document.getElementById('previewWarn').style.display = 'none';
      NUTRIENTS
      ========================================================= */
   var STORAGE_KEY = 'calorieCalc.v1';
+  var TARGET_KEY  = 'calorieCalc.targets.v1';
   var NUTRIENTS = [
-    { key: 'kcal',    label: '칼로리',   unit: 'kcal' },
-    { key: 'carb',    label: '탄수화물', unit: 'g'    },
-    { key: 'protein', label: '단백질',   unit: 'g'    },
-    { key: 'fat',     label: '지방',     unit: 'g'    },
-    { key: 'fiber',   label: '식이섬유', unit: 'g'    },
-    { key: 'sodium',  label: '나트륨',   unit: 'mg'   }
+    { key: 'kcal',    tkey: 'calories', label: '칼로리',   unit: 'kcal' },
+    { key: 'carb',    tkey: 'carbs',    label: '탄수화물', unit: 'g'    },
+    { key: 'protein', tkey: 'protein',  label: '단백질',   unit: 'g'    },
+    { key: 'fat',     tkey: 'fat',      label: '지방',     unit: 'g'    },
+    { key: 'fiber',   tkey: 'fiber',    label: '식이섬유', unit: 'g'    },
+    { key: 'sodium',  tkey: 'sodium',   label: '나트륨',   unit: 'mg'   }
   ];
+  var DEFAULT_TARGETS = { calories: 1800, carbs: 175, protein: 75, fat: 65, fiber: 28, sodium: 1000 };
   var MEALS = ['아침', '점심', '저녁', '간식'];
   var WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -665,6 +823,62 @@ document.getElementById('previewWarn').style.display = 'none';
 
   function kcalFromMacros(t) {
     return round1(parseNum(t && t.carb) * 4 + parseNum(t && t.protein) * 4 + parseNum(t && t.fat) * 9);
+  }
+
+  /* =========================================================
+     TARGETS  (하루 목표 · kcal 1800 / 탄 175 / 단 75 / 지 65 / 식이 28 / 나트륨 1000)
+     ========================================================= */
+  function defaultTargets() {
+    return { calories: 1800, carbs: 175, protein: 75, fat: 65, fiber: 28, sodium: 1000 };
+  }
+
+  /* 어떤 값이든 목표 객체로 — 빠진 항목은 기본값 */
+  function normalizeTargets(src) {
+    var d = defaultTargets(), out = {};
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      var tk = NUTRIENTS[i].tkey;
+      var has = !!(src && typeof src === 'object' && src[tk] !== undefined && src[tk] !== null);
+      out[tk] = round1(parseNum(has ? src[tk] : d[tk]));
+    }
+    return out;
+  }
+
+  /* 합계 vs 목표 → 진행률(bar는 0~100으로 잘라 그림)과 남음/초과 문구 */
+  function progressFor(total, target, unit) {
+    var v = parseNum(total), t = parseNum(target), u = unit || '';
+    if (!(t > 0)) {
+      return {
+        value: v, target: t, hasTarget: false, pct: 0, bar: 0,
+        remaining: 0, overAmount: 0, over: false, status: '목표 없음'
+      };
+    }
+    var raw = v / t * 100;
+    var over = (v - t) > 1e-9;
+    var remaining = over ? 0 : round1(t - v);
+    var overAmount = over ? round1(v - t) : 0;
+    var status;
+    if (over) { status = fmt(overAmount) + (u ? ' ' + u : '') + ' 초과'; }
+    else if (remaining > 0) { status = fmt(remaining) + (u ? ' ' + u : '') + ' 남음'; }
+    else { status = '목표 달성'; }
+    return {
+      value: v, target: t, hasTarget: true,
+      pct: Math.round(raw),
+      bar: Math.min(100, Math.max(0, round1(raw))),
+      remaining: remaining, overAmount: overAmount, over: over, status: status
+    };
+  }
+
+  function tkeyOf(key) {
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      if (NUTRIENTS[i].key === key) { return NUTRIENTS[i].tkey; }
+    }
+    return key;
+  }
+  function unitOf(key) {
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      if (NUTRIENTS[i].key === key) { return NUTRIENTS[i].unit; }
+    }
+    return '';
   }
 
   /* 날짜 키 helpers */
@@ -770,6 +984,29 @@ document.getElementById('previewWarn').style.display = 'none';
     saveStore();
   }
 
+  /* 목표는 음식 기록(calorieCalc.v1)과 따로, 자기 키에 저장한다 */
+  function loadTargets() {
+    var raw = null;
+    try { raw = window.localStorage.getItem(TARGET_KEY); } catch (e) { return; }
+    if (!raw) { targets = defaultTargets(); return; }
+    try { targets = normalizeTargets(JSON.parse(raw)); }
+    catch (e2) { targets = defaultTargets(); }
+  }
+
+  function saveTargets(next) {
+    targets = normalizeTargets(next);
+    if (storageBlocked) { return false; }
+    try {
+      window.localStorage.setItem(TARGET_KEY, JSON.stringify(targets));
+      return true;
+    } catch (e) {
+      storageBlocked = true;
+      updateStorageNotes();
+      showToast('목표를 저장하지 못했어요');
+      return false;
+    }
+  }
+
   /* core exports for tests */
   window.__calculator = {
     parseNum: parseNum, round1: round1, fmt: fmt,
@@ -777,13 +1014,18 @@ document.getElementById('previewWarn').style.display = 'none';
     macroPercents: macroPercents, kcalFromMacros: kcalFromMacros,
     buildEntry: buildEntry, keyToDate: keyToDate, dateToKey: dateToKey,
     shiftDate: shiftDate, prettyDate: prettyDate, mealForHour: mealForHour,
-    NUTRIENTS: NUTRIENTS, MEALS: MEALS, STORAGE_KEY: STORAGE_KEY
+    defaultTargets: defaultTargets, normalizeTargets: normalizeTargets,
+    progressFor: progressFor, tkeyOf: tkeyOf, unitOf: unitOf,
+    DEFAULT_TARGETS: DEFAULT_TARGETS, TARGET_KEY: TARGET_KEY, STORAGE_KEY: STORAGE_KEY,
+    NUTRIENTS: NUTRIENTS, MEALS: MEALS,
+    getTargets: function () { return normalizeTargets(targets); }
   };
 
   /* =========================================================
      STATE
      ========================================================= */
   var currentDate = todayKey();
+  var targets = defaultTargets();
   var editingId = null;
   var selectedMeal = '아침';
   var pendingDeleteId = null;
@@ -809,14 +1051,8 @@ document.getElementById('previewWarn').style.display = 'none';
   function renderSummary() {
     var entries = getEntries(currentDate);
     var t = sumEntries(entries);
-    el.sumKcal.textContent = fmt(t.kcal);
-    el.sumCarb.textContent = fmt(t.carb);
-    el.sumProtein.textContent = fmt(t.protein);
-    el.sumFat.textContent = fmt(t.fat);
-    el.sumFiber.textContent = fmt(t.fiber);
-    el.sumSodium.textContent = fmt(t.sodium);
-    el.sumCount.textContent = entries.length + '개 기록';
     el.listTotal.textContent = fmt(t.kcal) + ' kcal';
+    renderTargets(t, entries.length);
 
     var m = macroPercents(t);
     el.barC.style.width = m.carb + '%';
@@ -927,6 +1163,30 @@ document.getElementById('previewWarn').style.display = 'none';
     renderDate();
     renderSummary();
     renderList();
+  }
+
+  /* 칼로리와 5대 영양소의 목표 대비 진행률을 모두 칠한다 */
+  function renderTargets(t, count) {
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      var n = NUTRIENTS[i];
+      var ui = el.goal && el.goal[n.key];
+      if (!ui) { continue; }
+      var p = progressFor(t[n.key], targets[n.tkey], n.unit);
+      ui.val.textContent = fmt(t[n.key]);
+      ui.tgt.textContent = p.hasTarget ? fmt(p.target) : '—';
+      ui.bar.style.width = p.bar + '%';
+      ui.pct.textContent = p.hasTarget ? (p.pct > 999 ? '999%+' : p.pct + '%') : '—';
+      ui.left.textContent = p.status;
+      ui.left.classList.toggle('over', p.over);
+      if (ui.card) { ui.card.classList.toggle('over', p.over); }
+      if (ui.barWrap) {
+        ui.barWrap.classList.toggle('over', p.over);
+        ui.barWrap.setAttribute('aria-valuenow', String(Math.min(100, p.pct)));
+        ui.barWrap.setAttribute('aria-valuetext',
+          fmt(t[n.key]) + ' / ' + (p.hasTarget ? fmt(p.target) : '—') + ' ' + n.unit + ' · ' + p.status);
+      }
+    }
+    if (el.sumCount) { el.sumCount.textContent = count + '개 기록'; }
   }
 
   /* =========================================================
@@ -1094,6 +1354,75 @@ document.getElementById('previewWarn').style.display = 'none';
   }
 
   /* =========================================================
+     TARGET SHEET  (하루 목표 설정)
+     ========================================================= */
+  function readTargetInputs() {
+    var out = {};
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      var tk = NUTRIENTS[i].tkey;
+      var inp = el.tInputs && el.tInputs[tk];
+      out[tk] = round1(parseNum(inp ? inp.value : ''));
+    }
+    return out;
+  }
+
+  function fillTargetForm(t) {
+    var n = normalizeTargets(t);
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      var tk = NUTRIENTS[i].tkey;
+      var inp = el.tInputs && el.tInputs[tk];
+      if (inp) { inp.value = String(n[tk]); }
+    }
+  }
+
+  function showTargetMsg(msg) {
+    el.targetMsg.textContent = msg;
+    el.targetMsg.classList.add('show');
+  }
+  function hideTargetMsg() {
+    el.targetMsg.textContent = '';
+    el.targetMsg.classList.remove('show');
+  }
+
+  function openSheet() {
+    if (!el.backdrop) { return; }
+    fillTargetForm(targets);
+    hideTargetMsg();
+    el.backdrop.hidden = false;
+    document.body.classList.add('sheet-open');
+  }
+
+  function closeSheet() {
+    if (!el.backdrop) { return; }
+    el.backdrop.hidden = true;
+    document.body.classList.remove('sheet-open');
+  }
+
+  function onTargetSubmit(ev) {
+    ev.preventDefault();
+    var next = readTargetInputs();
+    var any = false;
+    for (var i = 0; i < NUTRIENTS.length; i++) {
+      if (next[NUTRIENTS[i].tkey] > 0) { any = true; break; }
+    }
+    if (!any) { showTargetMsg('목표를 하나는 0보다 크게 넣어 주세요.'); return; }
+    hideTargetMsg();
+    saveTargets(next);
+    renderSummary();
+    closeSheet();
+    showToast('하루 목표를 저장했어요');
+  }
+
+  function onTargetReset() {
+    var d = defaultTargets();
+    fillTargetForm(d);
+    hideTargetMsg();
+    saveTargets(d);
+    renderSummary();
+    showToast('기본값으로 되돌렸어요');
+  }
+
+  /* =========================================================
      NAV
      ========================================================= */
   function goDate(k) {
@@ -1130,6 +1459,49 @@ document.getElementById('previewWarn').style.display = 'none';
     el.pctP = $('pctP');
     el.pctF = $('pctF');
     el.ratioNote = $('ratioNote');
+    el.goal = {
+      kcal: {
+        card: null,
+        barWrap: $('barKcalWrap'), bar: $('barKcal'),
+        val: $('sumKcal'), tgt: $('targetKcal'), pct: $('pctKcal'), left: $('leftKcal')
+      },
+      carb: {
+        card: $('nutCarb'),
+        barWrap: $('barCarbWrap'), bar: $('barCarb'),
+        val: $('sumCarb'), tgt: $('targetCarb'), pct: $('pctCarb'), left: $('leftCarb')
+      },
+      protein: {
+        card: $('nutProtein'),
+        barWrap: $('barProteinWrap'), bar: $('barProtein'),
+        val: $('sumProtein'), tgt: $('targetProtein'), pct: $('pctProtein'), left: $('leftProtein')
+      },
+      fat: {
+        card: $('nutFat'),
+        barWrap: $('barFatWrap'), bar: $('barFat'),
+        val: $('sumFat'), tgt: $('targetFat'), pct: $('pctFat'), left: $('leftFat')
+      },
+      fiber: {
+        card: $('nutFiber'),
+        barWrap: $('barFiberWrap'), bar: $('barFiber'),
+        val: $('sumFiber'), tgt: $('targetFiber'), pct: $('pctFiber'), left: $('leftFiber')
+      },
+      sodium: {
+        card: $('nutSodium'),
+        barWrap: $('barSodiumWrap'), bar: $('barSodium'),
+        val: $('sumSodium'), tgt: $('targetSodium'), pct: $('pctSodium'), left: $('leftSodium')
+      }
+    };
+    el.backdrop = $('targetBackdrop');
+    el.targetSheet = $('targetSheet');
+    el.targetOpen = $('targetOpen');
+    el.targetClose = $('targetClose');
+    el.targetForm = $('targetForm');
+    el.targetReset = $('targetReset');
+    el.targetMsg = $('targetMsg');
+    el.tInputs = {
+      calories: $('fTKcal'), carbs: $('fTCarb'), protein: $('fTProtein'),
+      fat: $('fTFat'), fiber: $('fTFiber'), sodium: $('fTSodium')
+    };
     el.list = $('list');
     el.formCard = $('formCard');
     el.entryForm = $('entryForm');
@@ -1149,6 +1521,7 @@ document.getElementById('previewWarn').style.display = 'none';
     el.toast = $('toast');
 
     loadStore();
+    loadTargets();
     updateStorageNotes();
 
     currentDate = todayKey();
@@ -1170,6 +1543,17 @@ document.getElementById('previewWarn').style.display = 'none';
 
     el.entryForm.addEventListener('submit', onSubmit);
     el.cancelBtn.addEventListener('click', cancelEdit);
+
+    el.targetOpen.addEventListener('click', openSheet);
+    el.targetClose.addEventListener('click', closeSheet);
+    el.targetForm.addEventListener('submit', onTargetSubmit);
+    el.targetReset.addEventListener('click', onTargetReset);
+    el.backdrop.addEventListener('click', function (ev) {
+      if (ev.target === el.backdrop) { closeSheet(); }
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && el.backdrop && !el.backdrop.hidden) { closeSheet(); }
+    });
 
     /* Enter in the name field → next input instead of submitting */
     el.fName.addEventListener('keydown', function (e) {
